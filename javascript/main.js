@@ -442,7 +442,6 @@ window.onclick = function(event) {
 function addHistory(x,y) {
 
   var ul = document.querySelector(".matches");
-  var des = document.querySelector("#this");
 
   let newLi = document.createElement('li');
   let newDiv = document.createElement('div');
@@ -454,30 +453,44 @@ function addHistory(x,y) {
   let strong2 = document.createElement('strong');
 
   newDiv.setAttribute("class", "d-flex justify-content-center align-item-center gap-3");
+  
   if(x == "LOSE") {
+
     newSpan.setAttribute("class", "text-danger p-2");
+
   } else if(x == "WIN") {
+
     newSpan.setAttribute("class", "text-success p-2");
+
   } else {
+
     newSpan.setAttribute("class", "text-primary p-2");
+
   }
+
   newSpan.setAttribute("id", "thisisx");
   strong1.innerHTML = x;
   newImage.setAttribute("src","assets/img/"+`${choice_you}`+".png");
   newImage2.setAttribute("src","assets/img/"+`${choice_comp}`+".png");
-  // newImage.src = "assets/img/"+choice_you+".png";
-  // console.log(choice_comp);
   newImage.setAttribute("class", "emzh");
   newImage2.setAttribute("class", "emzh");
   newImage.setAttribute("id", "emzh");
   newImage2.setAttribute("id", "emzh");
+
   if(y == "LOSE") {
+
     newSpan2.setAttribute("class", "text-danger p-2");
+    
   } else if(y == "WIN") {
+
     newSpan2.setAttribute("class", "text-success p-2");
+
   } else {
+
     newSpan2.setAttribute("class", "text-primary p-2");
+
   }
+
   strong2.innerHTML = y;
 
   ul.appendChild(newLi);
