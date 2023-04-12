@@ -9,8 +9,8 @@ let msgspan = document.querySelector(".message");
 let glow = document.querySelector(".glow");
 let glow2 = document.querySelector(".glow2");
 
-let choice_you;
-let choice_comp;
+let choice_you = "";
+let choice_comp = "";
 let random;
 let msg = "";
 
@@ -149,9 +149,25 @@ let fire = document.querySelector("#fire");
 let water = document.querySelector("#water");
 let earth = document.querySelector("#earth");
 let f = document.querySelector("#shoot");
-var modal = document.getElementById("myModal");
+let modal = document.getElementById("myModal");
+let modal2 = document.getElementById("myModal2");
 
-var span = document.getElementsByClassName("close")[0];
+let span = document.getElementsByClassName("close")[0];
+let span2 = document.getElementsByClassName("close2")[0];
+
+let history = document.querySelector("#history");
+
+history.addEventListener("click", showHistory);
+
+function showHistory() {
+  modal2.style.display = "block";
+
+  span2.onclick = function() {
+    modal2.style.display = "none";
+    animate();
+  }
+
+}
 
 fire.addEventListener("click", Fire);
 water.addEventListener("click", Water);
@@ -164,6 +180,7 @@ function Fire() {
   glow2.src = "assets/img/firemuted.png";
   choice_you = fire.value;
   randomize();
+  animate();
   choice_comp = choices[random];
 
 }
@@ -174,6 +191,7 @@ function Water() {
   glow2.src = "assets/img/watermuted.png";
   choice_you = water.value;
   randomize();
+  animate();
   choice_comp = choices[random];
 
 }
@@ -184,6 +202,7 @@ function Earth() {
   glow2.src = "assets/img/earthmuted.png";
   choice_you = earth.value;
   randomize();
+  animate();
   choice_comp = choices[random];
 
 }
@@ -214,6 +233,9 @@ function fight() {
       glow2.src = "assets/img/"+choice_comp+".png";
       attack();
       sy.innerHTML = you_score;
+      var x = "WIN";
+      var y = "LOSE";
+      addHistory(x, y);
       
       
     choice_comp = "";
@@ -224,6 +246,9 @@ function fight() {
       msgspan.style.color = "blue"
       glow2.src = "assets/img/"+choice_comp+".png";
       dz();
+      var x = "DRAW";
+      var y = "DRAW";
+      addHistory(x, y);
   
       choice_comp = "";
       choice_you = "";
@@ -234,11 +259,14 @@ function fight() {
       glow2.src = "assets/img/"+choice_comp+".png";
       die();
       comp_score++;
+      var x = "LOSE";
+      var y = "WIN";
+      addHistory(x, y);
       sc.innerHTML = comp_score;
-  
       choice_comp = "";
       choice_you = "";
     }
+
 
 
   }
@@ -406,10 +434,59 @@ function randomize() {
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
+  } else if (event.target == modal2) {
+    modal2.style.display = "none";
   }
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      return false;
-    }
+}
+
+function addHistory(x,y) {
+
+  var ul = document.querySelector(".matches");
+  var des = document.querySelector("#this");
+
+  let newLi = document.createElement('li');
+  let newDiv = document.createElement('div');
+  let newSpan = document.createElement('span');
+  let strong1 = document.createElement('strong');
+  let newImage = document.createElement('img');
+  let newImage2 = document.createElement('img');
+  let newSpan2 = document.createElement('span');
+  let strong2 = document.createElement('strong');
+
+  newDiv.setAttribute("class", "d-flex justify-content-center align-item-center gap-3");
+  if(x == "LOSE") {
+    newSpan.setAttribute("class", "text-danger p-2");
+  } else if(x == "WIN") {
+    newSpan.setAttribute("class", "text-success p-2");
+  } else {
+    newSpan.setAttribute("class", "text-primary p-2");
   }
+  newSpan.setAttribute("id", "thisisx");
+  strong1.innerHTML = x;
+  newImage.setAttribute("src","assets/img/"+`${choice_you}`+".png");
+  newImage2.setAttribute("src","assets/img/"+`${choice_comp}`+".png");
+  // newImage.src = "assets/img/"+choice_you+".png";
+  // console.log(choice_comp);
+  newImage.setAttribute("class", "emzh");
+  newImage2.setAttribute("class", "emzh");
+  newImage.setAttribute("id", "emzh");
+  newImage2.setAttribute("id", "emzh");
+  if(y == "LOSE") {
+    newSpan2.setAttribute("class", "text-danger p-2");
+  } else if(y == "WIN") {
+    newSpan2.setAttribute("class", "text-success p-2");
+  } else {
+    newSpan2.setAttribute("class", "text-primary p-2");
+  }
+  strong2.innerHTML = y;
+
+  ul.appendChild(newLi);
+  newLi.appendChild(newDiv);
+  newDiv.appendChild(newSpan);
+  newSpan.appendChild(strong1);
+  newDiv.appendChild(newImage);
+  newDiv.appendChild(newImage2);
+  newDiv.appendChild(newSpan2);
+  newSpan2.appendChild(strong2);
+
 }
