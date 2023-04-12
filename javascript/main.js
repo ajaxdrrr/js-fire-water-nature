@@ -452,6 +452,8 @@ function addHistory(x,y) {
   let newSpan2 = document.createElement('span');
   let strong2 = document.createElement('strong');
 
+  newLi.style.listStyle = "none";
+
   newDiv.setAttribute("class", "d-flex justify-content-center align-item-center gap-3");
   
   if(x == "LOSE") {
